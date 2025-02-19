@@ -1,0 +1,99 @@
+[user]
+    email = me@iyaki.ar # El email utilizado para github
+    name = iyaki # Usuario coincidiendo con el de github
+    signingKey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHw4GbZSnrtVLNbjQfniVLiZtUUcBROWO+oAlISHcNWi # Clave pública correspondiente a la clave privada utilizada para firmar los commits
+
+[core]
+    editor = vim # https://xkcd.com/378/
+    autocrlf = input # \r quien te conoce?
+    excludesfile = ~/.gitignore-global # patrones para excluir de manera global
+    untrackedcache = true # https://github.blog/2022-06-29-improve-git-monorepo-performance-with-a-file-system-monitor/
+    fsmonitor = true # https://github.blog/2022-06-29-improve-git-monorepo-performance-with-a-file-system-monitor/
+
+[color]
+    ui = auto # Colorcitos lindos
+
+[help]
+    autocorrect = prompt # No hay que dejar que la dislexia nos gane
+
+[diff]
+    colorMoved = default # Diferencia (en los diff) lineas movidas de lineas eliminadas y nuevas
+
+[gpg]
+    format = ssh # Formato de la clave utilizada para firmar commits
+[commit]
+    gpgsign = true # Firmado automático de los commits
+    verbose = true
+[tag]
+    gpgsign = true # Firmado automático de los tags
+    sort = -version:refname
+[gpg "ssh"]
+    allowedSignersFile = ~/.config/git/authorized_signers # Claves publicas consideradas "seguras" para los commits firmados
+
+[init]
+    defaultBranch = main # Branch default
+
+[pager]
+    difftool = true # Use a pager for large output, just like other git commands
+
+[merge]
+    conflictstyle = zdiff3 # Mejor x2 resolución de conflictos durante los merge
+
+[alias] # Esto necesita explicación?
+    a = add
+    b = branch
+    c = commit -m
+    ca = commit --amend --no-edit
+    cl = clean -fd .
+    co = checkout
+    cr = ! gcr
+    cpr = ! gcpr
+    d = diff
+    l = ! git log --show-signature
+    lo = ! git log --color --pretty=format:'%Cred%H%Creset - %C(blue)(%G? %GT)%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    lol = ! git log --color --graph --pretty=format:'%Cred%h%Creset - %C(blue)(%G? %GT)%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    p = push
+    psu = push --set-upstream
+    pr = pull --rebase --autostash
+    r = reset
+    s = status
+    td = tag --delete
+    tdr = push --delete
+
+# Github CLI Auth - https://cli.github.com/manual/gh_auth_setup-git
+[credential "https://github.com"]
+    helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+    helper = !/usr/bin/gh auth git-credential
+
+[sendemail]
+    smtpserver = smtp.zoho.com
+    smtpuser = me@iyaki.ar
+    smtpencryption = tls
+    smtpserverport = 587
+
+# Popular git configs - https://jvns.ca/blog/2024/02/16/popular-git-config-options/
+[rerere]
+    enabled = true
+[push]
+    default = current
+[rebase]
+    autostash = true
+[transfer]
+    fsckobjects = true
+[fetch]
+    fsckobjects = true
+[receive]
+    fsckObjects = true
+[status]
+    submoduleSummary = true
+[branch]
+    sort = -committerdate
+[log]
+    date = iso
+
+[include]
+    path = ~/.gitconfig-bat
+    path = ~/.gitconfig-delta
+    path = ~/.gitconfig-difftastic
+    path = ~/.gitconfig-latest

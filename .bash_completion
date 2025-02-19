@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Import git fuctions for completions
+. /usr/share/bash-completion/completions/git
+
+function __branch_completion() {
+    COMPREPLY=($(compgen -W "$(__git_heads)" "${COMP_WORDS[1]}"))
+}
+
+function __remote_branch_completion() {
+    local REMOTE_BRANCHES="$(__git_remote_heads)"
+    COMPREPLY=($(compgen -W "${REMOTE_BRANCHES//'origin/'/}" "${COMP_WORDS[1]}"))
+}
+
+# Completion DSN alises
+function __oomysql_completion() {
+    COMPREPLY=($(compgen -W "$(mycli --list-dsn)" "${COMP_WORDS[1]}"))
+}
+
+# Completion running containers
+function __attach-docker_completion() {
+    COMPREPLY=($(compgen -W "$(docker ps --format '{{.Names}}')" "${COMP_WORDS[1]}"))
+}
+
+# Completion for "common" devcontainer usages
+complete -dfW '--workspace-folder up build' devcontainer
+
+# Brew completions
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+fi
+
+complete -C "$HOME/go/bin/gocomplete" go
