@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
 # Import git fuctions for completions
-. /usr/share/bash-completion/completions/git
+[ -f "/usr/share/bash-completion/completions/git" ] && . /usr/share/bash-completion/completions/git
 
 function __branch_completion() {
-    COMPREPLY=($(compgen -W "$(__git_heads)" "${COMP_WORDS[1]}"))
+    type __git_heads && COMPREPLY=($(compgen -W "$(__git_heads)" "${COMP_WORDS[1]}"))
 }
 
 function __remote_branch_completion() {
-    local REMOTE_BRANCHES="$(__git_remote_heads)"
-    COMPREPLY=($(compgen -W "${REMOTE_BRANCHES//'origin/'/}" "${COMP_WORDS[1]}"))
+    if type __git_remote_heads &>/dev/null
+    then
+        local REMOTE_BRANCHES="$(__git_remote_heads)"
+        COMPREPLY=($(compgen -W "${REMOTE_BRANCHES//'origin/'/}" "${COMP_WORDS[1]}"))
+    fi
 }
 
 # Completion DSN alises
