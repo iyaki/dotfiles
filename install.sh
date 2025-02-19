@@ -13,7 +13,12 @@ then
     then
         apt-get update &&
 
-        apt-get install --assume-yes --no-install-recommends openssh-client vim
+        apt-get install \
+            --assume-yes \
+            --no-install-recommends \
+            openssh-client \
+            less \
+            vim
 
         apt-get clean
         apt-get dsitclean
@@ -22,6 +27,7 @@ then
     then
         brew install openssh
         brew install vim
+        brew install less
 
         brew cleanup --prune --scrub
     fi
