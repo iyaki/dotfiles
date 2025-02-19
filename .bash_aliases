@@ -28,34 +28,34 @@ alias bap='bat --plain'
 
 # git
 alias g='git '
-type __git_complete && __git_complete g __git_main
+type __git_complete &> /dev/null && __git_complete g __git_main
 
 # git legacy aliases (los alias de git se migraron al sistema de alias propio de git)
 alias ga='git add '
-type __git_complete && __git_complete gco _git_add
+type __git_complete &> /dev/null && __git_complete gco _git_add
 alias gb='git branch '
-type __git_complete && __git_complete gco _git_branch
+type __git_complete &> /dev/null && __git_complete gco _git_branch
 alias gc='git commit -m '
 alias gca='git commit --amend --no-edit'
 alias gco='git checkout '
-type __git_complete && __git_complete gco _git_checkout
+type __git_complete &> /dev/null && __git_complete gco _git_checkout
 alias gd='git diff '
-type __git_complete && __git_complete gco _git_diff
+type __git_complete &> /dev/null && __git_complete gco _git_diff
 alias gdd='git difftool '
-type __git_complete && __git_complete gco _git_difftool
+type __git_complete &> /dev/null && __git_complete gco _git_difftool
 alias gl='git log --show-signature | bat --pager "less -rX" --plain'
 alias glo='git log --color --pretty=format:"%Cred%H%Creset - %C(blue)(%G? %GT)%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" | bat --pager "less -rX" --plain'
 alias glol='git log --color --graph --pretty=format:"%Cred%h%Creset - %C(blue)(%G? %GT)%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit -- | bat --pager "less -rX" --plain'
 alias gp='git push '
-type __git_complete && __git_complete gco _git_push
+type __git_complete &> /dev/null && __git_complete gco _git_push
 alias gpsu='git push --set-upstream '
-type __git_complete && __git_complete gco _git_push
+type __git_complete &> /dev/null && __git_complete gco _git_push
 alias gpr='git pr'
 complete -F __remote_branch_completion gpr
 alias gr='git reset'
-type __git_complete && __git_complete gco _git_reset
+type __git_complete &> /dev/null && __git_complete gco _git_reset
 alias gs='git status '
-type __git_complete && __git_complete gco _git_status
+type __git_complete &> /dev/null && __git_complete gco _git_status
 alias gtd='git tag --delete'
 alias gtdr='git tag --delete origin'
 

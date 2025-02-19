@@ -107,9 +107,9 @@ fi
 . "$HOME/.bash_functions"
 
 # Loads asdf version manager
-. "$HOME/.asdf/asdf.sh"
+[ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
 # asdf completion
-. "$HOME/.asdf/completions/asdf.bash"
+[ -f "$HOME/.asdf/completions/asdf.bash" ] && . "$HOME/.asdf/completions/asdf.bash"
 
 
 # Alias definitions.
