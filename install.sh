@@ -13,11 +13,7 @@ then
     then
         apt-get update &&
 
-        apt-get install \
-            --assume-yes \
-            --no-install-recommends \
-            openssh \
-            vim
+        apt-get install --assume-yes --no-install-recommends openssh-client vim
 
         apt-get clean
         apt-get dsitclean
