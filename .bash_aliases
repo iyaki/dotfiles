@@ -7,19 +7,24 @@ alias ..='cd ..'
 alias cd..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias -- -='cd -'
 
 # Files manipulation
 alias mv='mv -v'
 alias rm='rm -I -v'
 alias cp='cp -v'
 
-# ls
-alias l='lsd --long  '
-alias ll='lsd --long --almost-all '
+# clear - shortcut: Ctrl + l
+alias cl='clear'
 
-# less colours
-# alias less='less -R ' # Reemplazado por la variable de entorno LESS en .bash_profile
+# ls
+if type lsd &>/dev/null
+then
+    alias l='lsd --long '
+    alias ll='lsd --long --almost-all '
+else
+    alias l='ls -l --human-readable '
+    alias ll='ls -l --almost-all --human-readable '
+fi
 
 # bat - https://github.com/sharkdp/bat
 alias bat='bat --italic-text always --pager "less -rX" '
@@ -80,9 +85,6 @@ alias ootunnelssm='alephootunnelssm'
 alias oomysql='alephoomysql'
 complete -F __oomysql_completion oomysql
 alias ooec2='alephooec2'
-
-# docker
-alias hde-compose='docker compose --project-name hde-orchestator '
 
 # devcontainer
 alias devcontainer-up="devcontainer up --workspace-folder . "

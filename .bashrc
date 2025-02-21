@@ -121,13 +121,18 @@ fi
 # Add default key to ssh agent and hide the output
 ssh-add >& /dev/null
 
+# Additional configurations for specific hosts
+[ -f "$HOME/.bash_extras" ] && . "$HOME/.bash_extras"
+
 # Starship - https://starship.rs/
-if [ -n "$(which starship)" ]; then
+if type starship &>/dev/null
+then
   eval "$(starship init bash)"
 fi
 
 # Load zoxide (cd alternative - https://github.com/ajeetdsouza/zoxide)
-if [ -n "$(which zoxide)" ]; then
+if type zoxide &>/dev/null
+then
   eval "$(zoxide init bash)"
 fi
 
