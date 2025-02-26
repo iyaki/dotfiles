@@ -1,22 +1,25 @@
 #!/usr/bin/env sh
 
-mkdir -p "$HOME/.dotfiles.old"
+SCRIPTPATH=$(dirname "$(realpath "$0")")
 
-cp "$HOME/.bash_aliases" "$HOME/.dotfiles.old/"
-cp "$HOME/.bash_completion" "$HOME/.dotfiles.old/"
-cp "$HOME/.bash_functions" "$HOME/.dotfiles.old/"
-cp "$HOME/.bash_profile" "$HOME/.dotfiles.old/"
-cp "$HOME/.bashrc" "$HOME/.dotfiles.old/"
-cp "$HOME/.gitconfig" "$HOME/.dotfiles.old/"
-cp "$HOME/.vimrc" "$HOME/.dotfiles.old/"
+DOTFILES_BACKUP_DIR="$HOME/.dotfiles.old"
+mkdir -p "$DOTFILES_BACKUP_DIR"
 
-ln -s -f "$HOME/.dotfiles/.bash_aliases" $HOME/.bash_aliases
-ln -s -f "$HOME/.dotfiles/.bash_completion" $HOME/.bash_completion
-ln -s -f "$HOME/.dotfiles/.bash_functions" $HOME/.bash_functions
-ln -s -f "$HOME/.dotfiles/.bash_profile" $HOME/.bash_profile
-ln -s -f "$HOME/.dotfiles/.bashrc" $HOME/.bashrc
-ln -s -f "$HOME/.dotfiles/.gitconfig" $HOME/.gitconfig
-ln -s -f "$HOME/.dotfiles/.vimrc" $HOME/.vimrc
+cp "$HOME/.bash_aliases" "$DOTFILES_BACKUP_DIR/"
+cp "$HOME/.bash_completion" "$DOTFILES_BACKUP_DIR/"
+cp "$HOME/.bash_functions" "$DOTFILES_BACKUP_DIR/"
+cp "$HOME/.bash_profile" "$DOTFILES_BACKUP_DIR/"
+cp "$HOME/.bashrc" "$DOTFILES_BACKUP_DIR/"
+cp "$HOME/.gitconfig" "$DOTFILES_BACKUP_DIR/"
+cp "$HOME/.vimrc" "$DOTFILES_BACKUP_DIR/"
+
+ln -s -f "$SCRIPTPATH/.bash_aliases" $HOME/.bash_aliases
+ln -s -f "$SCRIPTPATH/.bash_completion" $HOME/.bash_completion
+ln -s -f "$SCRIPTPATH/.bash_functions" $HOME/.bash_functions
+ln -s -f "$SCRIPTPATH/.bash_profile" $HOME/.bash_profile
+ln -s -f "$SCRIPTPATH/.bashrc" $HOME/.bashrc
+ln -s -f "$SCRIPTPATH/.gitconfig" $HOME/.gitconfig
+ln -s -f "$SCRIPTPATH/.vimrc" $HOME/.vimrc
 
 if [ "$(id -u)" -eq "0" ]
 then
