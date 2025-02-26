@@ -14,6 +14,14 @@ function ignore_permision_denied() {
     grep -v "$PERMISSION_DENIED_MESSAGE"
 }
 
+capitalize () {
+    echo "$(tr '[:lower:]' '[:upper:]' <<< ${1:0:1})${1:1}"
+}
+
+toLowerCase () {
+    echo "$(tr '[:upper:]' '[:lower:]' <<< ${1})"
+}
+
 # find shorthand
 function f() {
     find . -name "${1}" 2>&1 | ignore_permision_denied
