@@ -1,5 +1,15 @@
 #!/usr/bin/env sh
 
+mkdir -p "$HOME/.dotfiles.old"
+
+cp "$HOME/.bash_aliases" "$HOME/.dotfiles.old/"
+cp "$HOME/.bash_completion" "$HOME/.dotfiles.old/"
+cp "$HOME/.bash_functions" "$HOME/.dotfiles.old/"
+cp "$HOME/.bash_profile" "$HOME/.dotfiles.old/"
+cp "$HOME/.bashrc" "$HOME/.dotfiles.old/"
+cp "$HOME/.gitconfig" "$HOME/.dotfiles.old/"
+cp "$HOME/.vimrc" "$HOME/.dotfiles.old/"
+
 ln -s -f "$HOME/.dotfiles/.bash_aliases" $HOME/.bash_aliases
 ln -s -f "$HOME/.dotfiles/.bash_completion" $HOME/.bash_completion
 ln -s -f "$HOME/.dotfiles/.bash_functions" $HOME/.bash_functions
