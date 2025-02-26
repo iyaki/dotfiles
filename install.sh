@@ -11,6 +11,7 @@ mkdir -p "$DOTFILES_BACKUP_DIR"
 [ -f "$HOME/.bash_profile" ] && cp "$HOME/.bash_profile" "$DOTFILES_BACKUP_DIR/"
 [ -f "$HOME/.bashrc" ] && cp "$HOME/.bashrc" "$DOTFILES_BACKUP_DIR/"
 [ -f "$HOME/.gitconfig" ] && cp "$HOME/.gitconfig" "$DOTFILES_BACKUP_DIR/"
+[ -f "$HOME/.profile" ] && cp "$HOME/.profile" "$DOTFILES_BACKUP_DIR/"
 [ -f "$HOME/.vimrc" ] && cp "$HOME/.vimrc" "$DOTFILES_BACKUP_DIR/"
 
 ln -s -f "$SCRIPTPATH/.bash_aliases" $HOME/.bash_aliases
@@ -19,6 +20,7 @@ ln -s -f "$SCRIPTPATH/.bash_functions" $HOME/.bash_functions
 ln -s -f "$SCRIPTPATH/.bash_profile" $HOME/.bash_profile
 ln -s -f "$SCRIPTPATH/.bashrc" $HOME/.bashrc
 ln -s -f "$SCRIPTPATH/.gitconfig" $HOME/.gitconfig
+ln -s -f "$SCRIPTPATH/.profile" $HOME/.profile
 ln -s -f "$SCRIPTPATH/.vimrc" $HOME/.vimrc
 
 if [ "$(id -u)" -eq "0" ]
