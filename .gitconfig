@@ -17,6 +17,9 @@
     autocorrect = prompt # No hay que dejar que la dislexia nos gane
 
 [diff]
+    algorithm = histogram
+    mnemonicPrefix = true # Replace the a/ and b/ in your diff header output with where the diff is coming from, so i/ (index), w/ (working directory) or c/ commit
+    renames = true
     colorMoved = default # Diferencia (en los diff) lineas movidas de lineas eliminadas y nuevas
 
 [gpg]
@@ -42,6 +45,7 @@
 [alias] # Esto necesita explicación?
     a = add
     b = branch
+    b-clear = ! git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}'); do git branch -D $branch; done
     c = commit -m
     ca = commit --amend --no-edit
     cl = clean -fd .
@@ -75,14 +79,22 @@
 # Popular git configs - https://jvns.ca/blog/2024/02/16/popular-git-config-options/
 [rerere]
     enabled = true
+    autoupdate = true
 [push]
-    default = current
+    default = simple
+    autoSetupRemote = true
+    followTags = true
 [rebase]
-    autostash = true
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
 [transfer]
     fsckobjects = true
 [fetch]
     fsckobjects = true
+    prune = true
+    pruneTags = true
+    all = true
 [receive]
     fsckObjects = true
 [status]
@@ -92,8 +104,14 @@
 [log]
     date = iso
 
+# https://blog.gitbutler.com/how-git-core-devs-configure-git/
+[column]
+    ui = auto
+
 [include]
     path = ~/.gitconfig-bat
     path = ~/.gitconfig-delta
     path = ~/.gitconfig-difftastic
     path = ~/.gitconfig-latest
+[pull]
+	rebase = false
