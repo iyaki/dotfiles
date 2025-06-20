@@ -101,6 +101,7 @@
     submoduleSummary = true
 [branch]
     sort = -committerdate
+    autoSetupMerge = simple
 [log]
     date = iso
 
