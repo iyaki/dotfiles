@@ -6,7 +6,7 @@
 
 # Create a new directory and enter it
 function md() {
-    mkdir -p "$@" && cd "$@" || exit
+    mkdir -p "$@" && cd "$@" || return 1
 }
 
 # ignores "permission denied" outputs
@@ -107,13 +107,13 @@ function video-resize() {
     if [ -z "${1}" ]
     then
         echo "Debe pasar el path a un video como primer argumento"
-        exit 1
+        return 1
     fi
 
     if [ -z "${2}" ]
     then
         echo "Debe pasar el ancho (en pixeles) al que redimensionar el video como segundo argumento"
-        exit 1
+        return 1
     fi
 
     local VIDEO="${1}"
@@ -135,7 +135,7 @@ function video-to-avif() {
     if [ -z "${1}" ]
     then
         echo "Debe pasar el path a un video como primer argumento"
-        exit 1
+        return 1
     fi
 
     local VIDEO="${1}"
@@ -158,7 +158,7 @@ function video-first-frame() {
     if [ -z "${1}" ]
     then
         echo "Debe pasar el path a un video como primer argumento"
-        exit 1
+        return 1
     fi
 
     local VIDEO="${1}"
@@ -173,7 +173,7 @@ function video-last-frame() {
     if [ -z "${1}" ]
     then
         echo "Debe pasar el path a un video como primer argumento"
-        exit 1
+        return 1
     fi
 
     local VIDEO="${1}"
@@ -284,7 +284,7 @@ Example:
         code --add "${WORKTREE_DIR_FULL}/${BRANCH_NAME}"
     fi
 
-    cd "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" || exit 1 &&
+    cd "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" || return 1 &&
 
     project_deploy
 }
@@ -323,7 +323,7 @@ Example:
         code --add "${WORKTREE_DIR_FULL}/${1}"
     fi
 
-    cd "${WORKTREE_DIR_FULL}/${1}" || exit 1 &&
+    cd "${WORKTREE_DIR_FULL}/${1}" || return 1 &&
 
     project_deploy
 }
