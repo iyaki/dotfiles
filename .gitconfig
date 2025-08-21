@@ -64,11 +64,12 @@
     td = tag --delete
     tdr = push --delete # tag delete remote
     w = worktree
-    wadd = worktree add
     wa = worktree add
-    wrm = worktree remove
-    wls = worktree list
+    wadd = worktree add
     wl = worktree list
+    wls = worktree list
+    wr = ! gwr
+    wrm = worktree remove
 
 # Github CLI Auth - https://cli.github.com/manual/gh_auth_setup-git
 [credential "https://github.com"]

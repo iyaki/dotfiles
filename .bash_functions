@@ -240,6 +240,96 @@ function gcpr() {
     project_deploy
 }
 
+# git worktree remote
+# For usage execute `gwr` without any argument
+function gwr() {
+    local REMOTE='origin'
+    local WORKTREE_DIR
+    WORKTREE_DIR="../$(basename "$(pwd -P)")-worktrees"
+    local WORKTREE_DIR_FULL
+    WORKTREE_DIR_FULL="$(get_repository_path)/${WORKTREE_DIR}"
+
+    mkdir -p "${WORKTREE_DIR_FULL}"
+
+    if [ -z "${1}" ]
+    then
+        echo "gwr creates a new worktree based on an ${REMOTE} branch.
+If the worktree already exists it is reseted.
+
+Usage:
+    gwr <${REMOTE} base branch> <name-for-new-branch>
+Example:
+        gwr development new-feature
+    will result in the creation of the worktree development_new-feature (inside ${WORKTREE_DIR}/development_new-feature)
+    tracking ${REMOTE}/development
+"
+        return
+    fi
+
+    git fetch -t -P "${REMOTE}" &&
+
+    local BRANCH_NAME='' &&
+
+    if [ -z "$2" ]
+    then
+        BRANCH_NAME="${1}"
+    else
+        BRANCH_NAME="${1}_${2}"
+    fi &&
+
+    git worktree add --track -B "${BRANCH_NAME}" "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" "${REMOTE}/${1}" &&
+
+    if [ "$VSCODE_SHELL_INTEGRATION" = '1' ]
+    then
+        code --add "${WORKTREE_DIR_FULL}/${BRANCH_NAME}"
+    fi
+
+    cd "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" || exit 1 &&
+
+    project_deploy
+}
+# gwr bash completion
+complete -F __remote_branch_completion gwr
+
+# git worktree add
+# For usage execute `gw` without any argument
+function gw() {
+    local WORKTREE_DIR
+    WORKTREE_DIR="../$(basename "$(pwd -P)")-worktrees"
+    local WORKTREE_DIR_FULL
+    WORKTREE_DIR_FULL="$(get_repository_path)/${WORKTREE_DIR}"
+
+    mkdir -p "${WORKTREE_DIR_FULL}"
+
+    if [ -z "${1}" ]
+    then
+        echo "gw creates a new worktree based on an ${REMOTE} branch.
+If the worktree already exists it is reseted.
+
+Usage:
+    gw <${REMOTE} base branch> <name-for-new-branch>
+Example:
+        gw development new-feature
+    will result in the creation of the worktree development_new-feature (inside ${WORKTREE_DIR}/development_new-feature)
+    tracking ${REMOTE}/development
+"
+        return
+    fi
+
+    git worktree add -B "${1}" "${WORKTREE_DIR_FULL}/${1}" &&
+
+    if [ "$VSCODE_SHELL_INTEGRATION" = '1' ]
+    then
+        code --add "${WORKTREE_DIR_FULL}/${1}"
+    fi
+
+    cd "${WORKTREE_DIR_FULL}/${1}" || exit 1 &&
+
+    project_deploy
+}
+# gw bash completion
+complete -F __remote_branch_completion gw
+
 function fire() {
     git add . &&
     git commit -m "${1:-';)'}" &&
