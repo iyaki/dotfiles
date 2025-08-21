@@ -62,7 +62,13 @@
     r = reset
     s = status
     td = tag --delete
-    tdr = push --delete
+    tdr = push --delete # tag delete remote
+    w = worktree
+    wadd = worktree add
+    wa = worktree add
+    wrm = worktree remove
+    wls = worktree list
+    wl = worktree list
 
 # Github CLI Auth - https://cli.github.com/manual/gh_auth_setup-git
 [credential "https://github.com"]
