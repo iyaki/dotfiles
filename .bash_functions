@@ -190,43 +190,46 @@ function get_repository_path() {
     git rev-parse --show-toplevel
 }
 
-# git checkout remote
-# For usage execute `gcr` without any argument
-function gcr() {
-    local REMOTE='origin'
+if ! type gcr &>/dev/null
+then
+    # git checkout remote
+    # For usage execute `gcr` without any argument
+    function gcr() {
+        local REMOTE='origin'
 
-    if [ -z "${1}" ]
-    then
-        echo "gcr creates a new branch based on an ${REMOTE} branch.
-If the branch already exists it is reseted.
+        if [ -z "${1}" ]
+        then
+            echo "gcr creates a new branch based on an ${REMOTE} branch.
+    If the branch already exists it is reseted.
 
-Usage:
-    gcr <${REMOTE} base branch> <name-for-new-branch>
-Example:
-        gcr development new-feature
-    will result in the creation of the branch development_new-feature
-    tracking ${REMOTE}/development
-"
-        return
-    fi
+    Usage:
+        gcr <${REMOTE} base branch> <name-for-new-branch>
+    Example:
+            gcr development new-feature
+        will result in the creation of the branch development_new-feature
+        tracking ${REMOTE}/development
+    "
+            return
+        fi
 
-    git fetch -t -P "${REMOTE}" &&
+        git fetch -t -P "${REMOTE}" &&
 
-    local BRANCH_NAME='' &&
+        local BRANCH_NAME='' &&
 
-    if [ -z "$2" ]
-    then
-        BRANCH_NAME="${1}"
-    else
-        BRANCH_NAME="${1}_${2}"
-    fi &&
+        if [ -z "$2" ]
+        then
+            BRANCH_NAME="${1}"
+        else
+            BRANCH_NAME="${1}_${2}"
+        fi &&
 
-    git checkout -t "${REMOTE}/${1}" -B "${BRANCH_NAME}" &&
+        git checkout -t "${REMOTE}/${1}" -B "${BRANCH_NAME}" &&
 
-    project_deploy
-}
-# gcr bash completion
-complete -F __remote_branch_completion gcr
+        project_deploy
+    }
+    # gcr bash completion
+    complete -F __remote_branch_completion gcr
+fi
 
 # git checkout pull request (gcpr) creates a new branch named
 # "pr-<pull request id>" based on an github pull request and changes the branch.
@@ -240,95 +243,102 @@ function gcpr() {
     project_deploy
 }
 
-# git worktree remote
-# For usage execute `gwr` without any argument
-function gwr() {
-    local REMOTE='origin'
-    local WORKTREE_DIR
-    WORKTREE_DIR="../$(basename "$(pwd -P)")-worktrees"
-    local WORKTREE_DIR_FULL
-    WORKTREE_DIR_FULL="$(get_repository_path)/${WORKTREE_DIR}"
+if ! type gwr &>/dev/null
+then
+    # git worktree remote
+    # For usage execute `gwr` without any argument
+    function gwr() {
+        local REMOTE='origin'
 
-    mkdir -p "${WORKTREE_DIR_FULL}"
+        if [ -z "${1}" ]
+        then
+            echo "gwr creates a new worktree based on an ${REMOTE} branch.
+    If the worktree already exists it is reseted.
 
-    if [ -z "${1}" ]
-    then
-        echo "gwr creates a new worktree based on an ${REMOTE} branch.
-If the worktree already exists it is reseted.
+    Usage:
+        gwr <${REMOTE} base branch> <name-for-new-branch>
+    Example:
+            gwr development new-feature
+        will result in the creation of the worktree development_new-feature (inside ${WORKTREE_DIR}/development_new-feature)
+        tracking ${REMOTE}/development
+    "
+            return
+        fi
 
-Usage:
-    gwr <${REMOTE} base branch> <name-for-new-branch>
-Example:
-        gwr development new-feature
-    will result in the creation of the worktree development_new-feature (inside ${WORKTREE_DIR}/development_new-feature)
-    tracking ${REMOTE}/development
-"
-        return
-    fi
+        local WORKTREE_DIR
+        WORKTREE_DIR="../$(basename "$(pwd -P)")-worktrees"
+        local WORKTREE_DIR_FULL
+        WORKTREE_DIR_FULL="$(get_repository_path)/${WORKTREE_DIR}"
 
-    git fetch -t -P "${REMOTE}" &&
+        mkdir -p "${WORKTREE_DIR_FULL}"
 
-    local BRANCH_NAME='' &&
+        git fetch -t -P "${REMOTE}" &&
 
-    if [ -z "$2" ]
-    then
-        BRANCH_NAME="${1}"
-    else
-        BRANCH_NAME="${1}_${2}"
-    fi &&
+        local BRANCH_NAME='' &&
 
-    git worktree add --track -B "${BRANCH_NAME}" "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" "${REMOTE}/${1}" &&
+        if [ -z "$2" ]
+        then
+            BRANCH_NAME="${1}"
+        else
+            BRANCH_NAME="${1}_${2}"
+        fi &&
 
-    if [ "$VSCODE_SHELL_INTEGRATION" = '1' ]
-    then
-        code --add "${WORKTREE_DIR_FULL}/${BRANCH_NAME}"
-    fi
+        git worktree add --track -B "${BRANCH_NAME}" "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" "${REMOTE}/${1}" &&
 
-    cd "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" || return 1 &&
+        if [ "$VSCODE_SHELL_INTEGRATION" = '1' ]
+        then
+            code --add "${WORKTREE_DIR_FULL}/${BRANCH_NAME}"
+        fi
 
-    project_deploy
-}
-# gwr bash completion
-complete -F __remote_branch_completion gwr
+        cd "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" || return 1 &&
 
-# git worktree add
-# For usage execute `gw` without any argument
-function gw() {
-    local WORKTREE_DIR
-    WORKTREE_DIR="../$(basename "$(pwd -P)")-worktrees"
-    local WORKTREE_DIR_FULL
-    WORKTREE_DIR_FULL="$(get_repository_path)/${WORKTREE_DIR}"
+        project_deploy
+    }
+    # gwr bash completion
+    complete -F __remote_branch_completion gwr
+fi
 
-    mkdir -p "${WORKTREE_DIR_FULL}"
+if ! type gw &>/dev/null
+then
+    # git worktree add
+    # For usage execute `gw` without any argument
+    function gw() {
+        if [ -z "${1}" ]
+        then
+            echo "gw creates a new worktree based on an ${REMOTE} branch.
+    If the worktree already exists it is reseted.
 
-    if [ -z "${1}" ]
-    then
-        echo "gw creates a new worktree based on an ${REMOTE} branch.
-If the worktree already exists it is reseted.
+    Usage:
+        gw <${REMOTE} base branch> <name-for-new-branch>
+    Example:
+            gw development new-feature
+        will result in the creation of the worktree development_new-feature (inside ${WORKTREE_DIR}/development_new-feature)
+        tracking ${REMOTE}/development
+    "
+            return
+        fi
 
-Usage:
-    gw <${REMOTE} base branch> <name-for-new-branch>
-Example:
-        gw development new-feature
-    will result in the creation of the worktree development_new-feature (inside ${WORKTREE_DIR}/development_new-feature)
-    tracking ${REMOTE}/development
-"
-        return
-    fi
+        local WORKTREE_DIR
+        WORKTREE_DIR="../$(basename "$(pwd -P)")-worktrees"
+        local WORKTREE_DIR_FULL
+        WORKTREE_DIR_FULL="$(get_repository_path)/${WORKTREE_DIR}"
 
-    git worktree add -B "${1}" "${WORKTREE_DIR_FULL}/${1}" &&
+        mkdir -p "${WORKTREE_DIR_FULL}"
 
-    if [ "$VSCODE_SHELL_INTEGRATION" = '1' ]
-    then
-        code --add "${WORKTREE_DIR_FULL}/${1}"
-    fi
+        git worktree add -B "${1}" "${WORKTREE_DIR_FULL}/${1}" &&
 
-    cd "${WORKTREE_DIR_FULL}/${1}" || return 1 &&
+        if [ "$VSCODE_SHELL_INTEGRATION" = '1' ]
+        then
+            code --add "${WORKTREE_DIR_FULL}/${1}"
+        fi
 
-    project_deploy
-}
-# gw bash completion
-complete -F __remote_branch_completion gw
+        cd "${WORKTREE_DIR_FULL}/${1}" || return 1 &&
+
+        project_deploy
+    }
+    # gw bash completion
+    complete -F __remote_branch_completion gw
+fi
 
 function fire() {
     git add . &&
