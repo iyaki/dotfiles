@@ -227,9 +227,9 @@ then
 
         project_deploy
     }
-    # gcr bash completion
-    complete -F __remote_branch_completion gcr
 fi
+# gcr bash completion
+complete -F __remote_branch_completion gcr
 
 # git checkout pull request (gcpr) creates a new branch named
 # "pr-<pull request id>" based on an github pull request and changes the branch.
@@ -294,9 +294,9 @@ then
 
         project_deploy
     }
-    # gwr bash completion
-    complete -F __remote_branch_completion gwr
 fi
+# gwr bash completion
+complete -F __remote_branch_completion gwr
 
 if ! type gw &>/dev/null
 then
@@ -336,9 +336,9 @@ then
 
         project_deploy
     }
-    # gw bash completion
-    complete -F __remote_branch_completion gw
 fi
+# gw bash completion
+complete -F __remote_branch_completion gw
 
 function fire() {
     git add . &&
