@@ -285,7 +285,7 @@ then
 
         git worktree add --track -B "${BRANCH_NAME}" "${WORKTREE_DIR_FULL}/${BRANCH_NAME}" "${REMOTE}/${1}" &&
 
-        if [ "$VSCODE_SHELL_INTEGRATION" = '1' ]
+        if [ "$TERM_PROGRAM" == "vscode" ]
         then
             code --add "${WORKTREE_DIR_FULL}/${BRANCH_NAME}"
         fi
