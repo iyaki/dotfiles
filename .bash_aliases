@@ -91,3 +91,7 @@ alias devcontainer-up="devcontainer up --workspace-folder . "
 
 # manage environment versioning
 alias config='git --git-dir=$HOME/.git/ --work-tree=$HOME'
+
+# https://opencode.ai/
+alias oc='opencode'
+
