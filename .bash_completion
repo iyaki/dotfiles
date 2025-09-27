@@ -43,4 +43,15 @@ then
   fi
 fi
 
-complete -C "$HOME/go/bin/gocomplete" go
+# Go completions
+if [ -f "$HOME/go/bin/gocomplete" ]
+then
+  complete -C "$HOME/go/bin/gocomplete" go
+fi
+
+# Jujutsu completions
+if type jj &>/dev/null
+then
+  source <(COMPLETE=bash jj)
+fi
+
