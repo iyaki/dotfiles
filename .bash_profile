@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Configure vim as default editor
+if type vim &>/dev/null
+then
+    export EDITOR='vim'
+fi
+
 # Brew config to prioritize non-brew package execution
 if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]
 then
@@ -53,3 +59,4 @@ export PATH="${PATH}:vendor/bin"
 
 # shellcheck source=.profile
 [ -f "$HOME/.profile" ] && . "$HOME/.profile"
+
