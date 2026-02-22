@@ -55,3 +55,8 @@ then
   source <(COMPLETE=bash jj)
 fi
 
+# asdf-vm completions
+if type asdf &>/dev/null
+then
+  . <(asdf completion bash)
+fi

@@ -107,9 +107,9 @@ fi
 . "$HOME/.bash_functions"
 
 # Loads asdf version manager
-[ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
-# asdf completion
-[ -f "$HOME/.asdf/completions/asdf.bash" ] && . "$HOME/.asdf/completions/asdf.bash"
+# [ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
+# # asdf completion
+# [ -f "$HOME/.asdf/completions/asdf.bash" ] && . "$HOME/.asdf/completions/asdf.bash"
 
 
 # Alias definitions.
@@ -138,3 +138,6 @@ fi
 
 # Load fzf: commnad-line fuzzy finder (zoxide companion)
 [ -f "$HOME/.fzf.bash" ] && . "$HOME/.fzf.bash"
+
+# opencode
+export PATH=/home/iyaki/.opencode/bin:$PATH
