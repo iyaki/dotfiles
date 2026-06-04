@@ -45,6 +45,9 @@ export PERMISSION_DENIED_MESSAGE='Permission denied'
 # aws cli configs
 export SAM_CLI_TELEMETRY=0
 
+# asdf-vm https://asdf-vm.com/
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
 # Adds go to path
 export PATH=$PATH:/usr/local/go/bin
 
@@ -59,4 +62,8 @@ export PATH="${PATH}:vendor/bin"
 
 # shellcheck source=.profile
 [ -f "$HOME/.profile" ] && . "$HOME/.profile"
+
+# Set XDG environment variables
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
 
