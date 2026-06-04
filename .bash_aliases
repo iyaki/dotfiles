@@ -95,3 +95,6 @@ alias config='git --git-dir=$HOME/.git/ --work-tree=$HOME'
 # https://opencode.ai/
 alias oc='opencode'
 
+# Claude Code
+alias ccd="claude --dangerously-skip-permissions"
+
