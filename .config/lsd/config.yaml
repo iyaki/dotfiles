@@ -1,0 +1,7 @@
+color:
+  theme: custom
+
+date: '+%F %r'
+
+size: short
+
