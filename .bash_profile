@@ -67,3 +67,5 @@ export PATH="${PATH}:vendor/bin"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 
+# Configure --userns=keep-id as default for podman (necesary to execute devcontainers)
+export PODMAN_USERNS=keep-id
